@@ -1,34 +1,5 @@
 import 'package:flutter/material.dart';
 
-class SanadLiveApp extends StatelessWidget {
-  const SanadLiveApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sanad Live',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green, // You can adjust this color
-        scaffoldBackgroundColor:
-            const Color(0xFFF0F0F0), // Light background color
-        fontFamily: 'Roboto', // You can change the font
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black54),
-          titleTextStyle: TextStyle(
-            color: Color(0xFF2E4C33), // Dark green for "Sanad Live"
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      home: const SanadLiveScreen(),
-    );
-  }
-}
-
 class SanadLiveScreen extends StatelessWidget {
   const SanadLiveScreen({super.key});
 
@@ -36,31 +7,36 @@ class SanadLiveScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black54),
-          onPressed: () {},
-        ),
-        title: const Text('Sanad Live'),
-        centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.black54),
-            onPressed: () {},
+            icon: const Icon(Icons.arrow_forward_ios,
+                color: Colors.black54),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ],
+       // title: const Text("المحاضرات المباشرة"),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.search, color: Colors.black54),
+          onPressed: () {
+            // TODO: Add search functionality
+          },
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               // Live Stream Player Section
               Container(
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.black, // Placeholder for video player
+                  color: Colors.black,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Stack(
@@ -73,27 +49,28 @@ class SanadLiveScreen extends StatelessWidget {
                     ),
                     Positioned(
                       top: 15,
-                      left: 15,
+                      right: 15,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: const Color(
-                              0xFFD4AF37), // Gold color for Live Now tag
+                              0xFFD4AF37),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Icon(Icons.circle, color: Colors.red, size: 10),
-                            SizedBox(width: 5),
                             Text(
-                              'Live Now',
+                              'بث مباشر الآن',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
                               ),
                             ),
+                            SizedBox(width: 5),
+                            Icon(Icons.circle, color: Colors.red, size: 10),
                           ],
                         ),
                       ),
@@ -105,106 +82,114 @@ class SanadLiveScreen extends StatelessWidget {
 
               // Mathematics Basics section
               const Text(
-                'Mathematics Basics',
+                'أساسيات الرياضيات',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
+                textAlign: TextAlign.right,
               ),
               const SizedBox(height: 5),
               const Text(
-                'Mr. Johnson',
+                'الأستاذة آمال الطيب', // Changed from 'Mr. Johnson' to a common Sudanese female teacher name
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
                 ),
+                textAlign: TextAlign.right,
               ),
               const SizedBox(height: 20),
 
               // Join Live Button
-              ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      const Color(0xFF2E4C33), // Dark green button color
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // TODO: Implement join live logic
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        const Color(0xFF2E4C33),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
-                ),
-                icon: const Icon(Icons.videocam, color: Colors.white, size: 24),
-                label: const Text(
-                  'Join Live',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                  label: const Text(
+                    'انضم إلى البث المباشر',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
+                  icon: const Icon(Icons.videocam, color: Colors.white, size: 24),
                 ),
               ),
               const SizedBox(height: 30),
 
               // Upcoming Sessions Title
               const Text(
-                'Upcoming Sessions',
+                'الجلسات القادمة',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
+                textAlign: TextAlign.right,
               ),
               const SizedBox(height: 20),
 
               // List of Upcoming Sessions
               _buildSessionCard(
                 imagePath:
-                    'assets/organic_chemistry.jpg', // Placeholder for organic chemistry image
-                title: 'Organic Chemistry',
-                instructor: 'Dr. Williams',
-                subject: 'Chemistry',
-                time: 'Today at 6:00 PM',
+                    'assets/organic_chemistry.jpg',
+                title: 'الكيمياء العضوية',
+                instructor: 'الدكتور أسامة بابكر', // Changed from 'Dr. Williams' to a common Sudanese male doctor name
+                subject: 'الكيمياء',
+                time: 'اليوم الساعة 6:00 مساءً',
               ),
               const SizedBox(height: 15),
               _buildSessionCard(
                 imagePath:
-                    'assets/world_history.jpg', // Placeholder for world history image
-                title: 'World History Overview',
-                instructor: 'Ms. Davis',
-                subject: 'History',
-                time: 'Today at 8:00 PM',
+                    'assets/world_history.jpg',
+                title: 'نظرة عامة على تاريخ العالم',
+                instructor: 'الأستاذة نادية هاشم', // Changed from 'Ms. Davis' to a common Sudanese female teacher name
+                subject: 'التاريخ',
+                time: 'اليوم الساعة 8:00 مساءً',
               ),
               const SizedBox(height: 15),
               _buildSessionCard(
                 imagePath:
-                    'assets/physics.jpg', // Placeholder for physics image
-                title: 'Physics Fundamentals',
-                instructor: 'Dr. Smith',
-                subject: 'Physics',
-                time: 'Tomorrow at 10:00 AM',
+                    'assets/physics.jpg',
+                title: 'أساسيات الفيزياء',
+                instructor: 'الدكتور عوض الكريم', // Changed from 'Dr. Smith' to a common Sudanese male doctor name
+                subject: 'الفيزياء',
+                time: 'غدًا الساعة 10:00 صباحًا',
               ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // Ensures all items are visible
+        type: BottomNavigationBarType.fixed,
         selectedItemColor:
-            const Color(0xFF2E4C33), // Dark green for selected icon
+            const Color(0xFF2E4C33),
         unselectedItemColor: Colors.grey,
-        currentIndex: 2, // Assuming the middle (Play) icon is selected
+        currentIndex: 2,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
-            label: '', // Empty label as per design
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-                Icons.desktop_mac_outlined), // Represents courses/desktop icon
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.play_circle_fill, size: 40), // Larger play icon
+            icon: Icon(
+                Icons.desktop_mac_outlined),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.play_circle_fill, size: 40),
             label: '',
           ),
           BottomNavigationBarItem(
@@ -216,7 +201,9 @@ class SanadLiveScreen extends StatelessWidget {
             label: '',
           ),
         ],
-        onTap: (index) {},
+        onTap: (index) {
+          // TODO: Implement navigation logic for bottom bar
+        },
       ),
     );
   }
@@ -247,12 +234,11 @@ class SanadLiveScreen extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              imagePath, // Use actual image paths
+              imagePath,
               width: 90,
               height: 90,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
-                // Fallback for missing images
                 return Container(
                   width: 90,
                   height: 90,
@@ -266,7 +252,7 @@ class SanadLiveScreen extends StatelessWidget {
           const SizedBox(width: 15),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   title,
@@ -275,6 +261,7 @@ class SanadLiveScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
+                  textAlign: TextAlign.right,
                 ),
                 const SizedBox(height: 5),
                 Text(
@@ -283,6 +270,7 @@ class SanadLiveScreen extends StatelessWidget {
                     fontSize: 15,
                     color: Colors.black54,
                   ),
+                  textAlign: TextAlign.right,
                 ),
                 const SizedBox(height: 5),
                 Text(
@@ -292,20 +280,20 @@ class SanadLiveScreen extends StatelessWidget {
                     color: Colors.black54,
                     fontWeight: FontWeight.w600,
                   ),
+                  textAlign: TextAlign.right,
                 ),
               ],
             ),
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             child: OutlinedButton(
               onPressed: () {
-                // TODO: Add set reminder logic
                 print('Set Reminder for $title');
               },
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(
-                    color: Color(0xFFD4AF37), width: 1.5), // Gold border
+                    color: Color(0xFFD4AF37), width: 1.5),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -313,11 +301,11 @@ class SanadLiveScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               ),
               child: const Text(
-                'Set Reminder',
+                'تعيين تذكير',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFD4AF37), // Gold text
+                  color: Color(0xFFD4AF37),
                 ),
               ),
             ),

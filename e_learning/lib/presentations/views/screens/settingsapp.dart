@@ -1,33 +1,6 @@
+import 'package:e_learning/presentations/bloc/Welcome/welcome_bloc.dart';
+import 'package:e_learning/presentations/views/screens/welcome.dart';
 import 'package:flutter/material.dart';
-
-
-class SanadSettingsApp extends StatelessWidget {
-  const SanadSettingsApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sanad Settings',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: const Color(0xFFF0F0F0), // لون الخلفية الفاتح
-        fontFamily: 'Roboto', // يمكنك تغيير الخط
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black54),
-          titleTextStyle: TextStyle(
-            color: Colors.black87,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      home: const SettingsScreen(),
-    );
-  }
-}
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -42,179 +15,203 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // TODO: أضف منطق الرجوع
-            Navigator.pop(context);
-            print('Back button pressed!');
-          },
+    return Directionality(
+      textDirection: TextDirection.rtl, 
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF0F0F0), 
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0, // No shadow
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_forward_ios,
+                color: Colors.black54), 
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: const Text(
+            'الإعدادات', // 
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
         ),
-        title: const Text('Settings'),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'General',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 15),
-              _buildSettingsCard([
-                _buildSettingsItem(
-                  icon: Icons.notifications_outlined,
-                  title: 'Notifications',
-                  trailingWidget: Switch(
-                    value: _notificationsEnabled,
-                    onChanged: (bool value) {
-                      setState(() {
-                        _notificationsEnabled = value;
-                      });
-                      // TODO: أضف منطق حفظ إعداد الإشعارات
-                      print('Notifications toggled: $value');
-                    },
-                    activeColor: const Color(0xFF4A34AF), // لون التبديل النشط
-                  ),
-                ),
-                _buildDivider(),
-                _buildSettingsItem(
-                  icon: Icons.language,
-                  title: 'Language',
-                  trailingWidget: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
-                  onTap: () {
-                    // TODO: انتقل إلى صفحة اختيار اللغة
-                    print('Language setting tapped!');
-                  },
-                ),
-                _buildDivider(),
-                _buildSettingsItem(
-                  icon: Icons.dark_mode_outlined,
-                  title: 'Dark Mode',
-                  trailingWidget: Switch(
-                    value: _darkModeEnabled,
-                    onChanged: (bool value) {
-                      setState(() {
-                        _darkModeEnabled = value;
-                      });
-                      // TODO: أضف منطق تفعيل الوضع الداكن
-                      print('Dark Mode toggled: $value');
-                    },
-                    activeColor: const Color(0xFF4A34AF),
-                  ),
-                ),
-              ]),
-              const SizedBox(height: 30),
-
-              const Text(
-                'Account',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 15),
-              _buildSettingsCard([
-                _buildSettingsItem(
-                  icon: Icons.person_outline,
-                  title: 'Edit Profile',
-                  trailingWidget: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
-                  onTap: () {
-                    // TODO: انتقل إلى صفحة تعديل الملف الشخصي
-                    print('Edit Profile tapped!');
-                  },
-                ),
-                _buildDivider(),
-                _buildSettingsItem(
-                  icon: Icons.lock_outline,
-                  title: 'Change Password',
-                  trailingWidget: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
-                  onTap: () {
-                    // TODO: انتقل إلى صفحة تغيير كلمة المرور
-                    print('Change Password tapped!');
-                  },
-                ),
-                _buildDivider(),
-                _buildSettingsItem(
-                  icon: Icons.security,
-                  title: 'Privacy Policy',
-                  trailingWidget: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
-                  onTap: () {
-                    // TODO: انتقل إلى صفحة سياسة الخصوصية
-                    print('Privacy Policy tapped!');
-                  },
-                ),
-              ]),
-              const SizedBox(height: 30),
-
-              const Text(
-                'Support',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 15),
-              _buildSettingsCard([
-                _buildSettingsItem(
-                  icon: Icons.help_outline,
-                  title: 'Help & FAQ',
-                  trailingWidget: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
-                  onTap: () {
-                    // TODO: انتقل إلى صفحة المساعدة والأسئلة الشائعة
-                    print('Help & FAQ tapped!');
-                  },
-                ),
-                _buildDivider(),
-                _buildSettingsItem(
-                  icon: Icons.contact_support_outlined,
-                  title: 'Contact Us',
-                  trailingWidget: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
-                  onTap: () {
-                    // TODO: انتقل إلى صفحة اتصل بنا
-                    print('Contact Us tapped!');
-                  },
-                ),
-              ]),
-              const SizedBox(height: 30),
-
-              // زر تسجيل الخروج
-              Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // TODO: أضف منطق تسجيل الخروج
-                    print('Logout button pressed!');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE25B5B), // لون أحمر لزر تسجيل الخروج
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  child: const Text(
-                    'Logout',
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end, 
+              children: [
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    'عام', 
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black87,
+                    ),
+                    textAlign: TextAlign.right, 
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/35),
+                _buildSettingsCard([
+                  _buildSettingsItem(
+                    icon: Icons.notifications_outlined,
+                    title: 'الإشعارات', 
+                    trailingWidget: Switch(
+                      value: _notificationsEnabled,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _notificationsEnabled = value;
+                        });
+                        
+                      },
+                      activeColor: const Color(0xFF4A34AF), 
+                    ),
+                  ),
+                  _buildDivider(),
+                  _buildSettingsItem(
+                    icon: Icons.language,
+                    title: 'اللغة', 
+                    trailingWidget: const Icon(Icons.arrow_back_ios,
+                        size: 18,
+                        color: Colors.grey), 
+                    onTap: () {
+
+                    },
+                  ),
+                  _buildDivider(),
+                  _buildSettingsItem(
+                    icon: Icons.dark_mode_outlined,
+                    title: 'الوضع الداكن',
+                    trailingWidget: Switch(
+                      value: _darkModeEnabled,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _darkModeEnabled = value;
+                        });
+                       
+                      },
+                      activeColor: const Color(0xFF4A34AF),
+                    ),
+                  ),
+                ]),
+                SizedBox(height: MediaQuery.of(context).size.height/35),
+
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    'الحساب', // Translated: 'Account'
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                    textAlign: TextAlign.right, 
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/35),
+                _buildSettingsCard([
+                  _buildSettingsItem(
+                    icon: Icons.person_outline,
+                    title: 'تعديل الملف الشخصي', 
+                    trailingWidget: const Icon(Icons.arrow_back_ios,
+                        size: 18, color: Colors.grey),
+                    onTap: () {
+                      
+                    },
+                  ),
+                  _buildDivider(),
+                  _buildSettingsItem(
+                    icon: Icons.lock_outline,
+                    title: 'تغيير كلمة المرور', 
+                    trailingWidget: const Icon(Icons.arrow_back_ios,
+                        size: 18, color: Colors.grey),
+                    onTap: () {
+                      
+                    },
+                  ),
+                  _buildDivider(),
+                  _buildSettingsItem(
+                    icon: Icons.security,
+                    title: 'سياسة الخصوصية', 
+                    trailingWidget: const Icon(Icons.arrow_back_ios,
+                        size: 18, color: Colors.grey),
+                    onTap: () {
+                     
+                    },
+                  ),
+                ]),
+                SizedBox(height: MediaQuery.of(context).size.height/35),
+
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    'الدعم', 
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                    textAlign: TextAlign.right, 
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/35),
+                _buildSettingsCard([
+                  _buildSettingsItem(
+                    icon: Icons.help_outline,
+                    title: 'المساعدة والأسئلة الشائعة', // Translated: 'Help & FAQ'
+                    trailingWidget: const Icon(Icons.arrow_back_ios,
+                        size: 18, color: Colors.grey),
+                    onTap: () {
+                      
+                    },
+                  ),
+                  _buildDivider(),
+                  _buildSettingsItem(
+                    icon: Icons.contact_support_outlined,
+                    title: 'اتصل بنا', 
+                    trailingWidget: const Icon(Icons.arrow_back_ios,
+                        size: 18, color: Colors.grey),
+                    onTap: () {
+                     
+                    },
+                  ),
+                ]),
+                SizedBox(height: MediaQuery.of(context).size.height/35),
+
+              
+                Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE25B5B), // لون أحمر لزر تسجيل الخروج
+                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const Text(
+                        'تسجيل الخروج', 
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -252,6 +249,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
         child: Row(
+          // In RTL, items in a Row naturally align with first on right, last on left
           children: [
             Icon(icon, size: 24, color: const Color(0xFF4A34AF)), // أيقونة بنفسجية
             const SizedBox(width: 15),
@@ -263,6 +261,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   color: Colors.black87,
                   fontWeight: FontWeight.w500,
                 ),
+                textAlign: TextAlign.right, // Explicitly right-align the title text
               ),
             ),
             if (trailingWidget != null) trailingWidget,

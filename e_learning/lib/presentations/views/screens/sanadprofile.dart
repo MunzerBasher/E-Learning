@@ -117,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Text(
-                    'NQ', // Placeholder initials
+                    'م ب', // Placeholder initials
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -154,10 +154,10 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
               'متوسط', // Transliteration and color code
                 style: TextStyle(
                   fontSize: 14,
@@ -166,7 +166,7 @@ class ProfileScreen extends StatelessWidget {
                 textAlign: TextAlign.right, // Ensure text alignment
               ),
               Row(
-                children: const [
+                children: [
                   Text(
                     'البريد الإلكتروني - الهاتف', // Translated: 'Email - Phone'
                     style: TextStyle(
@@ -223,7 +223,7 @@ class ProfileScreen extends StatelessWidget {
         Expanded(
           child: _buildProgressItem(
             title: 'سوفت ', // Transliteration: 'Soft FAF3E0'
-            value: '3400',
+            value: '40',
             subtitle1: 'مكتملة', // Translated: 'Completed'
             subtitle2: 'مفكرات', // Translated: 'Notebooks'
             subtitle3: 'تم تنزيلها', // Translated: 'Downloaded'
@@ -345,9 +345,9 @@ class ProfileScreen extends StatelessWidget {
           ),
           elevation: 0, // No extra shadow for the button itself
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             // Icons are naturally mirrored in RTL, but we're explicitly placing them
             Icon(Icons.widgets_outlined,
                 color: Colors.white,
